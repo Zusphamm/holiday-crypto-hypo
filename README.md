@@ -31,6 +31,12 @@ Periods: IS 2020-02 .. 2022-12, OS 2023-01 .. 2026-06.
 | VOL BTC (DVOL-priced) | 7, win 100%, +3.9% of spot | 14, win 79%, +2.1% |
 | VOL ETH (DVOL-priced) | 7, win 100%, +3.6% | 14, win 79%, +2.0% |
 
+## Also in this repo
+
+| Folder | What |
+|---|---|
+| [pump-short-alphas](pump-short-alphas/README.md) | two short rules on pumped perps (OI drop, crowded retail longs), IS + OS |
+
 ## Caveats
 
 - Small samples (7-24 events per period); no result reaches t >= 2 for the directional trade.
