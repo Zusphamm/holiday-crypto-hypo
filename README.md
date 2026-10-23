@@ -1,47 +1,48 @@
 # holiday-crypto-hypo
 
-Holiday effect on BTC / ETH perpetuals, tested with public data only (Binance USDT-M klines + funding, Deribit DVOL).
+Hiệu ứng ngày lễ trên hợp đồng perpetual BTC / ETH, chỉ dùng dữ liệu công khai (nến + funding Binance USDT-M,
+chỉ số DVOL của Deribit).
 
-## Run
+## Chạy
 
 ```bash
 pip install pandas numpy requests matplotlib pyarrow
-python holiday_hypo_test.py            # downloads into ./holiday_cache on the first run (~1 min)
-python holiday_hypo_test.py --refresh  # re-download
+python holiday_hypo_test.py            # lần đầu tải dữ liệu vào ./holiday_cache (~1 phút)
+python holiday_hypo_test.py --refresh  # tải lại dữ liệu
 ```
 
-## What it tests
+## Kiểm định cái gì
 
-| Part | Rule |
+| Phần | Luật |
 |------|------|
-| Measure | volume, realised vol (1h), daily range on holidays vs the same weekday in the 8 weeks before |
-| PRE\|ETH | long ETH perp from close D-4 to close D-1 on 7 holidays a year (16 bp + funding) |
-| VOL | sell a 3-day ATM straddle at 00:00 UTC on Christmas, New Year, Easter (Good Friday), Thanksgiving, priced at DVOL |
+| Đo lường | volume, biến động thực (từ nến 1h), biên độ ngày vào dịp lễ so với cùng thứ trong 8 tuần trước |
+| PRE\|ETH | long ETH perp từ giá đóng cửa D-4 đến D-1, 7 ngày lễ mỗi năm (phí 16 bp + funding) |
+| VOL | bán straddle ATM 3 ngày lúc 00:00 UTC vào Giáng sinh, Năm mới, Phục sinh (Thứ Sáu Tuần Thánh), Lễ Tạ ơn, định giá theo DVOL |
 
-Holidays: Christmas, New Year, US Thanksgiving, Easter, Lunar New Year, July 4, China Golden Week.
-Periods: IS 2020-02 .. 2022-12, OS 2023-01 .. 2026-06.
+Ngày lễ: Giáng sinh, Năm mới, Lễ Tạ ơn (Mỹ), Phục sinh, Tết Nguyên đán, Quốc khánh Mỹ 4/7, Quốc khánh Trung Quốc 1/10.
+Giai đoạn: IS 2020-02 .. 2022-12, OS 2023-01 .. 2026-06.
 
-## Results (from the script)
+## Kết quả (từ script)
 
 | | IS | OS |
 |---|---|---|
-| Western holidays: realised vol vs normal | 0.70-0.82 | 0.45-0.68 |
-| Asian holidays: realised vol vs normal | 0.74-1.01 | 1.25-2.17 |
-| PRE\|ETH | 19 trades, win 74%, +0.81% | 24 trades, win 62%, +0.99% |
-| VOL BTC (DVOL-priced) | 7, win 100%, +3.9% of spot | 14, win 79%, +2.1% |
-| VOL ETH (DVOL-priced) | 7, win 100%, +3.6% | 14, win 79%, +2.0% |
+| Lễ phương Tây: biến động thực so với ngày thường | 0.70-0.82 | 0.45-0.68 |
+| Lễ châu Á: biến động thực so với ngày thường | 0.74-1.01 | 1.25-2.17 |
+| PRE\|ETH | 19 lệnh, thắng 74%, +0.81% | 24 lệnh, thắng 62%, +0.99% |
+| VOL BTC (định giá theo DVOL) | 7 lệnh, thắng 100%, +3.9% giá spot | 14 lệnh, thắng 79%, +2.1% |
+| VOL ETH (định giá theo DVOL) | 7 lệnh, thắng 100%, +3.6% | 14 lệnh, thắng 79%, +2.0% |
 
-## Also in this repo
+## Trong repo còn có
 
-| Folder | What |
+| Thư mục | Nội dung |
 |---|---|
-| [pump-short-alphas](pump-short-alphas/README.md) | two short rules on pumped perps (OI drop, crowded retail longs), IS + OS; [origin](pump-short-alphas/origin.md), [variants A / A* / B / B*](pump-short-alphas/variants.md) |
+| [pump-short-alphas](pump-short-alphas/README.md) | 2 luật short coin vừa pump (OI giảm, retail long quá đông), IS + OS; [nguồn gốc](pump-short-alphas/origin.md), [các bản A / A* / B / B*](pump-short-alphas/variants.md) |
 
-## Caveats
+## Lưu ý
 
-- Small samples (7-24 events per period); no result reaches t >= 2 for the directional trade.
-- DVOL is a 30-day implied vol. Real short-dated options over holidays are usually priced lower, so the VOL result is
-  a best case: the edge disappears if holiday options trade below ~45% (BTC) / ~58% (ETH) of DVOL.
-- Research only, not investment advice.
+- Mẫu nhỏ (7-24 sự kiện mỗi giai đoạn); lệnh có hướng không đạt t >= 2.
+- DVOL là implied vol 30 ngày. Quyền chọn ngắn hạn qua dịp lễ thường rẻ hơn, nên kết quả VOL là trường hợp tốt nhất:
+  edge mất nếu quyền chọn dịp lễ có giá dưới ~45% (BTC) / ~58% (ETH) của DVOL.
+- Chỉ để nghiên cứu, không phải lời khuyên đầu tư.
 
-![chart](holiday_hypo_test.png)
+![biểu đồ](holiday_hypo_test.png)

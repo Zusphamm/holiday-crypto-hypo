@@ -1,63 +1,64 @@
 # pump-short-alphas
 
-Two short rules on Binance USDT-M perps that survived an out-of-sample run, from a separate mining project
-(not holiday related). Both fade a pump that is not backed by fresh positioning.
+Hai luật short trên perpetual Binance USDT-M đã sống qua một lần chạy out-of-sample, đến từ một dự án mining riêng
+(không liên quan ngày lễ). Cả hai đều đánh ngược một cú pump không có vị thế mới đứng sau.
 
-| Doc | What |
+| Tài liệu | Nội dung |
 |---|---|
-| [origin](origin.md) | where each idea came from (LLM mining / hand-written seed) and where the anomaly is |
-| [variants](variants.md) | all versions A / A* / B / B*, and both alphas on top-30 vs smaller coins |
+| [origin](origin.md) | mỗi ý tưởng đến từ đâu (LLM mining / ý tưởng viết tay) và anomaly nằm ở đâu |
+| [variants](variants.md) | tất cả các bản A / A* / B / B*, và 2 alpha trên top-30 so với coin nhỏ hơn |
 
-## Rules
+## Luật
 
-| Alpha | Signal on the daily bar d (UTC) | Trade |
+| Alpha | Tín hiệu trên nến ngày d (UTC) | Lệnh |
 |---|---|---|
-| A* (OI-drop pump) | open interest 7-d change ≤ −25% and 1-d return ≥ +13% and 30-d std of daily returns ≤ 0.12 | short 10 days |
-| retail_crowded_long | global long/short account ratio z-score ≥ 1.806 and 7-d return ≥ +24.95% | short 7 days |
+| A* (pump khi OI giảm) | open interest 7 ngày giảm ≥ 25% và lợi nhuận 1 ngày ≥ +13% và độ lệch chuẩn lợi nhuận ngày 30 ngày ≤ 0.12 | short 10 ngày |
+| retail_crowded_long | z-score tỷ lệ tài khoản long/short toàn sàn ≥ 1.806 và lợi nhuận 7 ngày ≥ +24.95% | short 7 ngày |
 
-| Item | Value |
+| Mục | Giá trị |
 |---|---|
-| Universe | top-100 perps by 30-d $ volume, point in time, delisted coins included |
-| Entry / exit | 1h close at 01:00 UTC on d+1, exit after the hold |
-| Costs | 16 bp round trip + funding paid / received |
-| Stop | exit at the first daily mark at a −50% loss (A*: daily close ≥ entry × 1.5) |
-| Overlap | one open trade per coin per rule |
-| Book | 10 slots of 10% (1/n when more than 10 are open), cash otherwise |
-| Data | Binance klines, funding and `metrics` (OI, long/short ratio) from data.binance.vision; OI / ratio exist for alts only from 2021-12 |
+| Rổ coin | top-100 perp theo volume $ trung bình 30 ngày, tại thời điểm đó, có cả coin đã bị delist |
+| Vào / ra | giá đóng nến 1h lúc 01:00 UTC ngày d+1, thoát sau thời gian giữ |
+| Chi phí | 16 bp khứ hồi + funding trả / nhận |
+| Stop | thoát ở mốc ngày đầu tiên lỗ −50% (A*: giá đóng cửa ngày ≥ giá vào × 1.5) |
+| Trùng lệnh | mỗi coin chỉ 1 lệnh mở cho mỗi luật |
+| Sổ | 10 slot, mỗi slot 10% (1/n khi hơn 10 lệnh mở), còn lại để tiền mặt |
+| Dữ liệu | nến, funding và `metrics` (OI, tỷ lệ long/short) của Binance từ data.binance.vision; OI / tỷ lệ của altcoin chỉ có từ 2021-12 |
 
-## Results
+## Kết quả
 
-IS 2021-01 .. 2023-12, OS 2024-01 .. 2026-06. Per-trade net after costs and funding; SR and drawdown of the 10-slot book.
+IS 2021-01 .. 2023-12, OS 2024-01 .. 2026-06. Lợi nhuận ròng mỗi lệnh sau phí và funding; SR và drawdown của sổ 10 slot.
 
-| Alpha | IS trades · win · mean · SR · DD | OS trades · win · mean · SR · DD |
+| Alpha | IS lệnh · thắng · TB · SR · DD | OS lệnh · thắng · TB · SR · DD |
 |---|---|---|
 | A* | 97 · 79% · +7.7% · 0.47 · −27% | 83 · 69% · +5.9% · 0.92 · −16% |
 | retail_crowded_long | 37 · 70% · +7.3% · 0.83 · −8% | 302 · 68% · +3.4% · 0.36 · −58% |
 
-By BTC regime (trend = BTC 30-d return sign, vol = BTC 30-d vol vs its 365-d median), OS mean per trade:
+Theo regime BTC (xu hướng = dấu lợi nhuận 30 ngày của BTC, biến động = vol 30 ngày của BTC so với trung vị 365 ngày),
+TB mỗi lệnh trên OS:
 
-| Alpha | bull·calm | bull·vol | bear·calm | bear·vol |
+| Alpha | tăng·êm | tăng·biến động | giảm·êm | giảm·biến động |
 |---|---|---|---|---|
-| A* | 11 · +0.7% | 22 · +3.4% | 8 · +3.4% | 42 · 81% win · +9.0% |
-| retail_crowded_long | 108 · +4.8% | 112 · +2.7% | 34 · −1.8% | 48 · 81% win · +5.6% |
+| A* | 11 · +0.7% | 22 · +3.4% | 8 · +3.4% | 42 · thắng 81% · +9.0% |
+| retail_crowded_long | 108 · +4.8% | 112 · +2.7% | 34 · −1.8% | 48 · thắng 81% · +5.6% |
 
-![chart](pump_short_alphas.png)
+![biểu đồ](pump_short_alphas.png)
 
-Files: `trades.csv` (every trade: alpha, segment, symbol, entry, exit, BTC regime, net), `results.json`.
+File: `trades.csv` (mọi lệnh: alpha, giai đoạn, coin, vào, ra, regime BTC, lợi nhuận ròng), `results.json`.
 
-## Caveats
+## Lưu ý
 
-| Caveat | Effect |
+| Lưu ý | Ảnh hưởng |
 |---|---|
-| Selection | retail_crowded_long was 1 of 17 IS hits kept by the OS; A*'s parameters were tuned after its OS had been seen once. The OS is not a clean holdout |
-| Stop gaps | the stop is checked at daily marks, so a single trade can still lose > 50% (worst OS trade −124%) |
-| Short pumps | many losers spike far above entry before collapsing; tighter stops turned the OS mean negative |
-| Regime | bear·vol looks best for both, but that was seen only after the OS: not a rule |
-| Forward test | a forward paper book of both rules started on 2026-10-23 |
+| Chọn lọc | retail_crowded_long là 1 trong 17 ý tưởng đạt IS được OS giữ lại; tham số A* được tối ưu sau khi OS đã bị nhìn 1 lần. OS không còn là holdout sạch |
+| Stop bị trượt | stop chỉ kiểm tra theo mốc ngày, nên 1 lệnh vẫn có thể lỗ > 50% (lệnh OS tệ nhất −124%) |
+| Short coin pump | nhiều lệnh thua bị giá vọt rất xa trước khi sập; stop chặt hơn làm TB trên OS thành âm |
+| Regime | giảm·biến động trông tốt nhất cho cả hai, nhưng chỉ thấy sau khi đã xem OS: chưa phải là luật |
+| Kiểm định forward | sổ paper forward cho cả 2 luật bắt đầu từ 2026-10-23 |
 
-Research only, not investment advice.
+Chỉ để nghiên cứu, không phải lời khuyên đầu tư.
 
-## Related
+## Liên quan
 
 - [origin](origin.md) · [variants](variants.md)
-- [holiday test](../README.md)
+- [kiểm định ngày lễ](../README.md)

@@ -1,50 +1,50 @@
 # variants
 
-All versions of the OI-drop pump short, and both alphas by coin size. IS 2021-01 .. 2023-12 (OI data for alts starts
-2021-12, so trades start in 2022), OS 2024-01 .. 2026-06. Costs 16 bp round trip + funding.
+Tất cả các bản của luật short khi pump mà OI giảm, và 2 alpha chia theo cỡ coin. IS 2021-01 .. 2023-12 (dữ liệu OI
+của altcoin bắt đầu từ 2021-12, nên lệnh bắt đầu từ 2022), OS 2024-01 .. 2026-06. Chi phí 16 bp khứ hồi + funding.
 
 ## A / A* / B / B*
 
-| Version | Rule (short) | Hold · hedge · stop · vol filter |
+| Bản | Luật (short) | Giữ · hedge · stop · lọc biến động |
 |---|---|---|
-| A (mined) | OI 7d ≤ −25% & ret 1d ≥ +13% | 7d · BTC hedge · none · none |
-| B (mined) | OI 7d ≤ −30% & ret 1d ≥ +15% | 7d · none · none · none |
-| A* (tuned) | OI 7d ≤ −25% & ret 1d ≥ +13% | 10d · none · daily close ≥ entry × 1.5 · σ30 ≤ 0.12 |
-| B* (tuned) | OI 7d ≤ −30% & ret 1d ≥ +13% | 10d · none · daily close ≥ entry × 1.5 · σ30 ≤ 0.10 |
+| A (mining) | OI 7 ngày ≤ −25% & lợi nhuận 1 ngày ≥ +13% | 7 ngày · hedge BTC · không · không |
+| B (mining) | OI 7 ngày ≤ −30% & lợi nhuận 1 ngày ≥ +15% | 7 ngày · không · không · không |
+| A* (tối ưu) | OI 7 ngày ≤ −25% & lợi nhuận 1 ngày ≥ +13% | 10 ngày · không · giá đóng cửa ngày ≥ giá vào × 1.5 · σ30 ≤ 0.12 |
+| B* (tối ưu) | OI 7 ngày ≤ −30% & lợi nhuận 1 ngày ≥ +13% | 10 ngày · không · giá đóng cửa ngày ≥ giá vào × 1.5 · σ30 ≤ 0.10 |
 
-| Version | IS trades · win · mean · worst · SR | OS trades · win · mean · worst · SR |
+| Bản | IS lệnh · thắng · TB · tệ nhất · SR | OS lệnh · thắng · TB · tệ nhất · SR |
 |---|---|---|
 | A | 114 · 71% · +3.6% · −36% · 0.89 | 213 · 58% · +2.6% · −216% · 0.31 |
 | B | 56 · 79% · +7.1% · −24% · 1.08 | 111 · 63% · +5.4% · −248% · 0.46 |
 | A* | 97 · 79% · +7.7% · −58% · 0.75 | 83 · 69% · +5.9% · −34% · 1.02 |
 | B* | 52 · 89% · +9.1% · −13% · 0.69 | 34 · 71% · +6.6% · −25% · 0.57 |
 
-SR here = equal-weight book of open trades (as in the tuning script); the 10-slot book in the README gives A* 0.47 / 0.92.
-A and B were frozen before their OS run. A* and B* were tuned with the OS already seen: their OS is in-sample for the
-tuning, only the forward paper (from 2026-10-23) is clean. A* by year: 2022 +12.9%, 2023 −6.4%, 2024 +5.6%,
-2025 +6.0%, 2026 H1 +8.0% per trade.
+SR ở đây = sổ chia đều cho các lệnh đang mở (như trong script tối ưu); sổ 10 slot trong README cho A* 0.47 / 0.92.
+A và B được đóng băng trước khi chạy OS. A* và B* được tối ưu khi đã xem OS: OS của chúng là in-sample đối với bước
+tối ưu, chỉ sổ paper forward (từ 2026-10-23) là sạch. A* theo năm: 2022 +12.9%, 2023 −6.4%, 2024 +5.6%,
+2025 +6.0%, 2026 nửa đầu +8.0% mỗi lệnh.
 
-![variants](variants.png)
+![các bản](variants.png)
 
-The chart sums trade returns (not a sized book). The jump in Nov 2022 is the FTX crash: many signals at once, a
-large share of the IS profit comes from that one cluster.
+Biểu đồ cộng dồn lợi nhuận từng lệnh (không phải sổ có chia vốn). Cú nhảy tháng 11/2022 là vụ FTX sập: rất nhiều tín
+hiệu cùng lúc, một phần lớn lợi nhuận IS đến từ cụm lệnh đó.
 
-Files: `variants_trades.csv` (variant, segment, symbol, entry, exit, stopped, net), `variants.json`.
+File: `variants_trades.csv` (bản, giai đoạn, coin, vào, ra, có dính stop, lợi nhuận ròng), `variants.json`.
 
-## By coin size (top-30 vs rank 31-100)
+## Theo cỡ coin (top-30 so với hạng 31-100)
 
-Same rules, -50% stop and 10-slot book as the README, universe split by 30-d $ volume rank (point in time).
+Cùng luật, stop −50% và sổ 10 slot như README, rổ coin chia theo thứ hạng volume $ 30 ngày (tại thời điểm đó).
 
-| Alpha · universe | IS trades · win · mean · SR | OS trades · win · mean · SR · DD |
+| Alpha · rổ coin | IS lệnh · thắng · TB · SR | OS lệnh · thắng · TB · SR · DD |
 |---|---|---|
 | A* · top-30 | 33 · 67% · +4.0% · 0.28 | 22 · 68% · +6.3% · 0.63 · −8% |
-| A* · rank 31-100 | 64 · 86% · +9.7% · 0.78 | 61 · 69% · +5.7% · 0.79 · −15% |
+| A* · hạng 31-100 | 64 · 86% · +9.7% · 0.78 | 61 · 69% · +5.7% · 0.79 · −15% |
 | retail · top-30 | 13 · 85% · +9.6% · 0.79 | 79 · 61% · +2.3% · 0.35 · −31% |
-| retail · rank 31-100 | 24 · 62% · +6.1% · 0.62 | 226 · 71% · +4.0% · 0.49 · −47% |
+| retail · hạng 31-100 | 24 · 62% · +6.1% · 0.62 | 226 · 71% · +4.0% · 0.49 · −47% |
 
-Both hold on the 30 largest perps too, with fewer trades: the edge is not only a small-cap effect.
+Cả hai vẫn đứng được trên 30 perp lớn nhất, chỉ ít lệnh hơn: edge không chỉ là hiệu ứng coin nhỏ.
 
-## Related
+## Liên quan
 
 - [README](README.md)
 - [origin](origin.md)

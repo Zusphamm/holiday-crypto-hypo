@@ -1,24 +1,24 @@
 """
-Holiday hypothesis test for BTC / ETH (standalone: only public Binance + Deribit APIs, no keys).
+Kiểm định giả thuyết ngày lễ cho BTC / ETH (chạy độc lập: chỉ dùng API công khai của Binance + Deribit, không cần key).
 
   pip install pandas numpy requests matplotlib
-  python holiday_hypo_test.py                 # download (cached in ./holiday_cache), measure, test, plot
-  python holiday_hypo_test.py --refresh       # re-download the data
+  python holiday_hypo_test.py                 # tải dữ liệu (cache trong ./holiday_cache), đo, kiểm định, vẽ biểu đồ
+  python holiday_hypo_test.py --refresh       # tải lại dữ liệu
 
-Holidays (UTC date D): Christmas 12-25, New Year 01-01, US Thanksgiving, Easter (D = Good Friday), Lunar New Year,
-US Independence Day 07-04, China Golden Week 10-01.
+Ngày lễ (ngày D theo UTC): Giáng sinh 25/12, Năm mới 1/1, Lễ Tạ ơn Mỹ, Phục sinh (D = Thứ Sáu Tuần Thánh), Tết Nguyên
+đán, Quốc khánh Mỹ 4/7, Quốc khánh Trung Quốc 1/10.
 
-1. Measure: on day D (and 3 days before / after), $ volume, realised vol (sqrt of the sum of squared 1h log returns)
-   and daily range vs the same weekday in the 8 weeks before (1.0 = normal).
-2. PRE|ETH: long ETH perp from close D-4 to close D-1 on every holiday (16 bp round trip + funding), compared with a
-   3-day ETH long on any day.
-3. VOL: on Western holidays (Christmas, New Year, Easter, Thanksgiving) sell a 3-day ATM straddle at 00:00 UTC on D,
-   priced at Deribit DVOL (30-d implied vol) with premium = 0.8 * IV * sqrt(3/365); payoff |S(D+3) / S0 - 1|;
-   cost 0.06% of spot + 5% of premium. Compared with selling the same straddle every day.
-   "break-even IV" = how far below DVOL the real holiday option price may be before the edge is gone.
-   DVOL is a 30-day IV: real short-dated holiday options are usually priced lower, so this is the best case.
+1. Đo lường: vào ngày D (và 3 ngày trước / sau), volume $, biến động thực (căn của tổng bình phương log return 1h)
+   và biên độ ngày so với cùng thứ trong 8 tuần trước (1.0 = bình thường).
+2. PRE|ETH: long ETH perp từ giá đóng cửa D-4 đến D-1 ở mọi ngày lễ (16 bp khứ hồi + funding), so với long ETH
+   3 ngày vào một ngày bất kỳ.
+3. VOL: vào các lễ phương Tây (Giáng sinh, Năm mới, Phục sinh, Lễ Tạ ơn) bán straddle ATM 3 ngày lúc 00:00 UTC ngày D,
+   định giá theo Deribit DVOL (implied vol 30 ngày) với phí quyền chọn = 0.8 * IV * sqrt(3/365); trả |S(D+3) / S0 - 1|;
+   chi phí 0.06% giá spot + 5% phí quyền chọn. So với bán cùng straddle mỗi ngày.
+   "IV hoà vốn" = giá quyền chọn dịp lễ thật có thể thấp hơn DVOL bao nhiêu trước khi edge biến mất.
+   DVOL là IV 30 ngày: quyền chọn ngắn hạn dịp lễ thật thường rẻ hơn, nên đây là trường hợp tốt nhất.
 
-Periods: IS 2020-02 .. 2022-12 (DVOL from 2021-03-24), OS 2023-01 .. 2026-06-30.
+Giai đoạn: IS 2020-02 .. 2022-12 (DVOL từ 2021-03-24), OS 2023-01 .. 2026-06-30.
 """
 import math, sys, time
 from pathlib import Path
@@ -31,14 +31,14 @@ HERE = Path(__file__).resolve().parent
 CACHE = HERE / "holiday_cache"
 START, OS0, END = pd.Timestamp("2020-01-01"), pd.Timestamp("2023-01-01"), pd.Timestamp("2026-07-01")
 ASSETS = ("BTCUSDT", "ETHUSDT")
-COST = 2 * (0.0005 + 0.0003)                                         # perp: taker 5 bp + slippage 3 bp, per side
+COST = 2 * (0.0005 + 0.0003)                                         # perp: taker 5 bp + trượt giá 3 bp, mỗi chiều
 EASTER = ["2020-04-12", "2021-04-04", "2022-04-17", "2023-04-09", "2024-03-31", "2025-04-20", "2026-04-05"]
 LNY = ["2020-01-25", "2021-02-12", "2022-02-01", "2023-01-22", "2024-02-10", "2025-01-29", "2026-02-17"]
-WEST = ("Christmas", "New Year", "Easter", "Thanksgiving")
+WEST = ("Giáng sinh", "Năm mới", "Phục sinh", "Lễ Tạ ơn")
 ms = lambda t: int(t.timestamp() * 1000)
 
 
-# ----------------------------------------------------------------------------- data
+# ----------------------------------------------------------------------------- dữ liệu
 def get(url, **p):
     for i in range(5):
         try:
@@ -110,7 +110,7 @@ def dvol(cur):
     return s.close
 
 
-# ----------------------------------------------------------------------------- calendar
+# ----------------------------------------------------------------------------- lịch
 def thanksgiving(y):
     d = pd.Timestamp(f"{y}-11-01")
     return d + pd.Timedelta(days=(3 - d.weekday()) % 7 + 21)
@@ -119,11 +119,11 @@ def thanksgiving(y):
 def holidays():
     H = []
     for y in range(2020, 2027):
-        H += [("Christmas", pd.Timestamp(f"{y}-12-25")), ("New Year", pd.Timestamp(f"{y}-01-01")),
-              ("Thanksgiving", thanksgiving(y)), ("July 4", pd.Timestamp(f"{y}-07-04")),
-              ("Golden Week", pd.Timestamp(f"{y}-10-01"))]
-    H += [("Easter", pd.Timestamp(e) - pd.Timedelta(days=2)) for e in EASTER]
-    H += [("Lunar New Year", pd.Timestamp(d)) for d in LNY]
+        H += [("Giáng sinh", pd.Timestamp(f"{y}-12-25")), ("Năm mới", pd.Timestamp(f"{y}-01-01")),
+              ("Lễ Tạ ơn", thanksgiving(y)), ("Quốc khánh Mỹ 4/7", pd.Timestamp(f"{y}-07-04")),
+              ("Quốc khánh TQ 1/10", pd.Timestamp(f"{y}-10-01"))]
+    H += [("Phục sinh", pd.Timestamp(e) - pd.Timedelta(days=2)) for e in EASTER]
+    H += [("Tết Nguyên đán", pd.Timestamp(d)) for d in LNY]
     return sorted([(n, d) for n, d in H if START + pd.Timedelta(days=60) <= d and d + pd.Timedelta(days=4) < END - pd.Timedelta(days=1)],
                   key=lambda x: x[1])
 
@@ -131,7 +131,7 @@ def holidays():
 seg = lambda d: "IS" if d < OS0 else "OS"
 
 
-# ----------------------------------------------------------------------------- 1. measure
+# ----------------------------------------------------------------------------- 1. đo lường
 def measure(D1, H1):
     H = holidays()
     excl = {D + pd.Timedelta(days=k) for _, D in H for k in range(-4, 5)}
@@ -154,7 +154,7 @@ def measure(D1, H1):
                     r[f"{w}_{m}"] = np.nanmean(vals) if vals else np.nan
             rows.append(r)
     M = pd.DataFrame(rows)
-    print("\n=== 1. Holiday day vs normal (same weekday, 8 weeks before); 1.0 = normal ===")
+    print("\n=== 1. Ngày lễ so với ngày thường (cùng thứ, 8 tuần trước); 1.0 = bình thường ===")
     t = M.groupby(["holiday", "seg"])[["hol_quote_volume", "hol_rv", "hol_rng", "post_rv"]].mean().unstack("seg").round(2)
     t.columns = [f"{a.replace('hol_', 'day_').replace('quote_volume', 'volume')}_{b}" for a, b in t.columns]
     print(t.to_string())
@@ -167,28 +167,28 @@ def pre_eth(D1, F):
     fat = lambda t: float(f[f.index <= t].iloc[-1]) if (f.index <= t).any() else 0.0
     rows = []
     for name, D in holidays():
-        t0, t1 = D - pd.Timedelta(days=4), D - pd.Timedelta(days=1)       # bar dates; close of bar t = price at t + 1 day
+        t0, t1 = D - pd.Timedelta(days=4), D - pd.Timedelta(days=1)       # ngày của nến; giá đóng nến t = giá lúc t + 1 ngày
         if t0 in c.index and t1 in c.index:
             net = c[t1] / c[t0] - 1 - (fat(t1 + pd.Timedelta(days=1)) - fat(t0 + pd.Timedelta(days=1))) - COST
             rows.append(dict(holiday=name, date=D, seg=seg(D), net=net))
     X = pd.DataFrame(rows)
     base = (c.shift(-3) / c - 1 - COST).dropna()
-    print("\n=== 2. PRE|ETH: long ETH close D-4 -> close D-1 ===")
+    print("\n=== 2. PRE|ETH: long ETH từ giá đóng D-4 -> giá đóng D-1 ===")
     for s in ("IS", "OS"):
         x = X[X.seg == s].net
         b = base[(base.index < OS0) if s == "IS" else (base.index >= OS0)]
-        print(f"{s}: {len(x)} trades | win {(x > 0).mean():.0%} | mean {x.mean() * 100:+.2f}% | median {x.median() * 100:+.2f}% "
-              f"| t {x.mean() / x.std() * math.sqrt(len(x)):.2f}   || any 3-day ETH long: win {(b > 0).mean():.0%} mean {b.mean() * 100:+.2f}%")
+        print(f"{s}: {len(x)} lệnh | thắng {(x > 0).mean():.0%} | TB {x.mean() * 100:+.2f}% | trung vị {x.median() * 100:+.2f}% "
+              f"| t {x.mean() / x.std() * math.sqrt(len(x)):.2f}   || long ETH 3 ngày bất kỳ: thắng {(b > 0).mean():.0%} TB {b.mean() * 100:+.2f}%")
     return X
 
 
-# ----------------------------------------------------------------------------- 3. VOL straddle
+# ----------------------------------------------------------------------------- 3. straddle VOL
 def vol_straddle(D1):
     hol = {D: n for n, D in holidays() if n in WEST}
     rows = []
     for a in ASSETS:
         iv, s = dvol(a[:3]) / 100, D1[a].close
-        for d in iv.index:                                               # DVOL day-d close = IV at 00:00 d+1 = spot close of bar d
+        for d in iv.index:                                               # DVOL đóng ngày d = IV lúc 00:00 d+1 = giá đóng nến d
             d1 = d + pd.Timedelta(days=3)
             if d not in s.index or d1 not in s.index:
                 continue
@@ -199,12 +199,12 @@ def vol_straddle(D1):
                              pnl=prem - move - 0.0006 - 0.05 * prem))
     V = pd.DataFrame(rows)
     be = lambda g: (g.move.mean() + 0.0006) / (0.95 * g.prem.mean())
-    print("\n=== 3. VOL: sell 3-day ATM straddle at 00:00 UTC on Western holidays (DVOL-priced, % of spot) ===")
+    print("\n=== 3. VOL: bán straddle ATM 3 ngày lúc 00:00 UTC vào lễ phương Tây (định giá DVOL, % giá spot) ===")
     for (a, s), g in V.groupby(["asset", "seg"]):
         h, b = g[g.holiday.notna()], g[g.holiday.isna()]
-        print(f"{a} {s}: {len(h)} holidays | win {(h.pnl > 0).mean():.0%} | mean {h.pnl.mean() * 100:+.2f}% | break-even IV "
-              f"{be(h):.0%} of DVOL   || every day: win {(b.pnl > 0).mean():.0%} mean {b.pnl.mean() * 100:+.2f}% break-even {be(b):.0%}")
-        print("      by holiday (mean %):", (h.groupby("holiday").pnl.mean() * 100).round(2).to_dict())
+        print(f"{a} {s}: {len(h)} ngày lễ | thắng {(h.pnl > 0).mean():.0%} | TB {h.pnl.mean() * 100:+.2f}% | IV hoà vốn "
+              f"{be(h):.0%} DVOL   || mọi ngày: thắng {(b.pnl > 0).mean():.0%} TB {b.pnl.mean() * 100:+.2f}% hoà vốn {be(b):.0%}")
+        print("      theo ngày lễ (TB %):", (h.groupby("holiday").pnl.mean() * 100).round(2).to_dict())
     return V
 
 
@@ -222,24 +222,24 @@ def plot(X, V):
         ax.grid(alpha=0.3)
     x = X.sort_values("date")
     a1.plot(x.date, x.net.cumsum() * 100, marker="o", ms=3, drawstyle="steps-post")
-    a1.set_title("PRE|ETH: long ETH 3 days before holidays")
-    a1.set_ylabel("cumulative % (same size per trade)")
+    a1.set_title("PRE|ETH: long ETH 3 ngày trước lễ")
+    a1.set_ylabel("% cộng dồn (mỗi lệnh cùng khối lượng)")
     h = V[V.holiday.notna()].sort_values("day")
     for a, g in h.groupby("asset"):
         a2.plot(g.day, g.pnl.cumsum() * 100, marker="o", ms=3, drawstyle="steps-post", label=a)
     a2.legend()
-    a2.set_title("VOL: short 3-day ATM straddle over Western holidays (DVOL)")
-    a2.set_ylabel("cumulative % of spot")
-    fig.suptitle("Holiday hypotheses — yellow = OS 2023-01 .. 2026-06")
+    a2.set_title("VOL: bán straddle ATM 3 ngày qua lễ phương Tây (DVOL)")
+    a2.set_ylabel("% giá spot cộng dồn")
+    fig.suptitle("Giả thuyết ngày lễ — nền vàng = OS 2023-01 .. 2026-06")
     plt.tight_layout()
     out = HERE / "holiday_hypo_test.png"
     plt.savefig(out, dpi=110)
-    print(f"\nchart: {out}")
+    print(f"\nbiểu đồ: {out}")
 
 
 def main():
     CACHE.mkdir(exist_ok=True)
-    print("downloading / loading data (first run takes a few minutes) ...")
+    print("đang tải / đọc dữ liệu (lần đầu mất vài phút) ...")
     D1 = {a: klines(a, "1d") for a in ASSETS}
     H1 = {a: klines(a, "1h") for a in ASSETS}
     F = {a: funding(a) for a in ASSETS}
