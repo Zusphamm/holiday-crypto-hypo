@@ -35,7 +35,7 @@ Periods: IS 2020-02 .. 2022-12, OS 2023-01 .. 2026-06.
 
 | Folder | What |
 |---|---|
-| [pump-short-alphas](pump-short-alphas/README.md) | two short rules on pumped perps (OI drop, crowded retail longs), IS + OS |
+| [pump-short-alphas](pump-short-alphas/README.md) | two short rules on pumped perps (OI drop, crowded retail longs), IS + OS; [origin](pump-short-alphas/origin.md), [variants A / A* / B / B*](pump-short-alphas/variants.md) |
 
 ## Caveats
 

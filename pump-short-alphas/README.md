@@ -3,6 +3,11 @@
 Two short rules on Binance USDT-M perps that survived an out-of-sample run, from a separate mining project
 (not holiday related). Both fade a pump that is not backed by fresh positioning.
 
+| Doc | What |
+|---|---|
+| [origin](origin.md) | where each idea came from (LLM mining / hand-written seed) and where the anomaly is |
+| [variants](variants.md) | all versions A / A* / B / B*, and both alphas on top-30 vs smaller coins |
+
 ## Rules
 
 | Alpha | Signal on the daily bar d (UTC) | Trade |
@@ -54,4 +59,5 @@ Research only, not investment advice.
 
 ## Related
 
+- [origin](origin.md) · [variants](variants.md)
 - [holiday test](../README.md)
