@@ -36,6 +36,7 @@ Giai đoạn: IS 2020-02 .. 2022-12, OS 2023-01 .. 2026-06.
 
 | Thư mục | Nội dung |
 |---|---|
+| [btc-pump-leaders](btc-pump-leaders/README.md) | long coin có volume bùng nổ, gần đỉnh, vào ngày BTC tăng mạnh: luật do mining tìm ra + bản tối ưu, IS + OS, đường PnL, [vì sao bắt được](btc-pump-leaders/mechanism.md) |
 | [pump-short-alphas](pump-short-alphas/README.md) | 2 luật short coin vừa pump (OI giảm, retail long quá đông), IS + OS; [nguồn gốc](pump-short-alphas/origin.md), [các bản A / A* / B / B*](pump-short-alphas/variants.md) |
 
 ## Lưu ý

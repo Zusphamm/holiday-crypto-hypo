@@ -1,0 +1,154 @@
+{
+ "gốc|is": {
+  "cfg": {
+   "btc_ret_1d": 0.06,
+   "dist_high_30": -0.033,
+   "vol_z": 2.29,
+   "hold": 14,
+   "stop": null,
+   "min_coins": 1
+  },
+  "trades": 45,
+  "signal_days": 19,
+  "win": 0.822,
+  "mean_trade_pct": 26.24,
+  "day_mean_pct": 27.55,
+  "day_win": 0.74,
+  "excess_day_mean_pct": 20.97,
+  "excess_day_win": 0.53,
+  "excess_t": 1.61,
+  "worst_trade_pct": -53.6,
+  "book_sr": 1.63,
+  "book_total_pct": 109.5,
+  "book_maxdd_pct": -12.8
+ },
+ "tối ưu|is": {
+  "cfg": {
+   "btc_ret_1d": 0.05,
+   "dist_high_30": -0.1,
+   "vol_z": 2.7,
+   "hold": 21,
+   "stop": null,
+   "min_coins": 1
+  },
+  "trades": 122,
+  "signal_days": 38,
+  "win": 0.746,
+  "mean_trade_pct": 25.08,
+  "day_mean_pct": 39.78,
+  "day_win": 0.66,
+  "excess_day_mean_pct": 18.93,
+  "excess_day_win": 0.42,
+  "excess_t": 1.31,
+  "worst_trade_pct": -45.9,
+  "book_sr": 1.74,
+  "book_total_pct": 248.3,
+  "book_maxdd_pct": -45.4
+ },
+ "gốc|os": {
+  "cfg": {
+   "btc_ret_1d": 0.06,
+   "dist_high_30": -0.033,
+   "vol_z": 2.29,
+   "hold": 14,
+   "stop": null,
+   "min_coins": 1
+  },
+  "trades": 41,
+  "signal_days": 10,
+  "win": 0.805,
+  "mean_trade_pct": 18.31,
+  "day_mean_pct": 5.05,
+  "day_win": 0.7,
+  "excess_day_mean_pct": 1.14,
+  "excess_day_win": 0.6,
+  "excess_t": 0.16,
+  "worst_trade_pct": -40.5,
+  "book_sr": 1.41,
+  "book_total_pct": 68.3,
+  "book_maxdd_pct": -10.7
+ },
+ "tối ưu|os": {
+  "cfg": {
+   "btc_ret_1d": 0.05,
+   "dist_high_30": -0.1,
+   "vol_z": 2.7,
+   "hold": 21,
+   "stop": null,
+   "min_coins": 1
+  },
+  "trades": 62,
+  "signal_days": 15,
+  "win": 0.661,
+  "mean_trade_pct": 29.42,
+  "day_mean_pct": 13.9,
+  "day_win": 0.6,
+  "excess_day_mean_pct": 9.53,
+  "excess_day_win": 0.53,
+  "excess_t": 1.1,
+  "worst_trade_pct": -59.0,
+  "book_sr": 1.54,
+  "book_total_pct": 118.0,
+  "book_maxdd_pct": -18.5
+ },
+ "why_btc5_days": {
+  "is": {
+   "btc_up5_days": 70,
+   "groups": {
+    "còn lại": {
+     "days": 70,
+     "coins": 4763,
+     "day_mean_pct": 15.19,
+     "day_win": 0.66
+    },
+    "gần đỉnh + volume bùng": {
+     "days": 39,
+     "coins": 133,
+     "day_mean_pct": 42.11,
+     "day_win": 0.69
+    },
+    "gần đỉnh, volume thường": {
+     "days": 63,
+     "coins": 1592,
+     "day_mean_pct": 18.87,
+     "day_win": 0.71
+    },
+    "xa đỉnh + volume bùng": {
+     "days": 33,
+     "coins": 82,
+     "day_mean_pct": 53.08,
+     "day_win": 0.58
+    }
+   }
+  },
+  "os": {
+   "btc_up5_days": 26,
+   "groups": {
+    "còn lại": {
+     "days": 26,
+     "coins": 1929,
+     "day_mean_pct": -0.57,
+     "day_win": 0.46
+    },
+    "gần đỉnh + volume bùng": {
+     "days": 15,
+     "coins": 64,
+     "day_mean_pct": 13.97,
+     "day_win": 0.6
+    },
+    "gần đỉnh, volume thường": {
+     "days": 25,
+     "coins": 537,
+     "day_mean_pct": 2.03,
+     "day_win": 0.48
+    },
+    "xa đỉnh + volume bùng": {
+     "days": 16,
+     "coins": 29,
+     "day_mean_pct": 11.71,
+     "day_win": 0.5
+    }
+   }
+  }
+ }
+}
