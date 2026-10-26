@@ -11,7 +11,8 @@ USDT-M, top-100 theo volume 30 ngày tính tại thời điểm đó (có cả c
 | 2. OS batch 2 | OS 2024-01 .. 2026-06, **1 lần** | đóng băng cả 421 luật, chạy OS một lần |
 | 3. Lọc | báo cáo batch | qua IS (≥ 15 lệnh, thắng ≥ 65%, TB ≥ +2%) **và** trên OS ≥ 15 lệnh, thắng ≥ 55%, TB > 0 |
 
-Có 39/421 luật qua IS, trong đó 9 luật giữ được trên OS. 2 luật đã có trong repo nên bỏ qua
+Theo tiêu chí lỏng ở trên, 39/421 luật qua IS, trong đó 9 luật giữ được trên OS. Theo tiêu chí chặt (xem dưới), chỉ 17
+luật qua IS và 5 luật giữ được trên OS. 2 luật đã có trong repo nên bỏ qua
 ([btc-pump-leaders](../btc-pump-leaders/README.md), `retail_crowded_long` trong [pump-short-alphas](../pump-short-alphas/README.md)).
 Toàn bộ 39 luật qua IS kèm kết quả OS nằm trong `all_is_hits_batch2.csv`.
 
@@ -61,8 +62,9 @@ Sổ 10 slot: mỗi lệnh 10% vốn (lệnh thứ 11 trở đi chia đều), ph
   chỉ có 8 ngày vào lệnh và tất cả trong năm 2024.
 - **R6 lãi mỏng và có rủi ro đuôi.** Lệnh tệ nhất −165% là một lần short bị squeeze. Không nên chạy luật này nếu
   không có stop.
-- **Batch này có tương quan xếp hạng IS–OS thấp (0.08).** Khi chọn luật tốt nhất trên OS, một phần kết quả là may.
-  Phép thử sạch là chạy paper tiếp.
+- **Trong batch này, bộ lọc IS gần như không có tác dụng.** Tương quan xếp hạng IS–OS chỉ 0.08. OS SR trung vị của 17
+  luật qua IS chặt là −0.05, ngang với −0.07 của các luật còn lại. Ở batch 1 thì khác: 0.38 so với 0.09. Vì vậy 3 luật
+  R3–R5 cũng có thể chỉ là phần may của 17 lần thử. Phép thử sạch là chạy paper tiếp.
 
 ## File
 
