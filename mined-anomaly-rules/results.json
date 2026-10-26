@@ -1,0 +1,426 @@
+{
+ "R1": {
+  "id": "2c08d2a995",
+  "rule": "funding_3d <= 0.0003 & ret_us >= 0.05 & taker_ratio <= 0.4563 → long 14d",
+  "spec": {
+   "name": "Luật Giao Dịch Crypto Perp - Binance USDT-M (2021-2023)",
+   "anomaly": "mined",
+   "rationale": "Khắc phục tình trạng bị ép mua/bán do thanh lý, funding cực đoan, short/long đông, coin bị bán tháo bằng cách tập trung vào sự chênh lệch giữa thị trường Mỹ và hành vi giao dịch theo thời gian",
+   "conditions": [
+    {
+     "feature": "funding_3d",
+     "op": "<=",
+     "value": 0.0003
+    },
+    {
+     "feature": "ret_us",
+     "op": ">=",
+     "value": 0.05
+    },
+    {
+     "feature": "taker_ratio",
+     "op": "<=",
+     "value": 0.4563
+    }
+   ],
+   "side": "long",
+   "hold_days": 14,
+   "hedge": "none"
+  },
+  "is": {
+   "trades": 28,
+   "win": 0.679,
+   "mean_pct": 39.42,
+   "median_pct": 14.85,
+   "worst_pct": -33.2,
+   "by_year": {
+    "2021": 52.22,
+    "2022": -21.99,
+    "2023": 7.0
+   },
+   "entry_days": 20,
+   "equal_weight_sr": 1.09,
+   "book10_sr": 1.19,
+   "book10_total_pct": 110.4,
+   "book10_maxdd_pct": -14.5
+  },
+  "os": {
+   "trades": 16,
+   "win": 0.625,
+   "mean_pct": 25.19,
+   "median_pct": 4.58,
+   "worst_pct": -41.9,
+   "by_year": {
+    "2024": -9.63,
+    "2025": 57.56,
+    "2026": 1.21
+   },
+   "entry_days": 15,
+   "equal_weight_sr": 1.23,
+   "book10_sr": 1.16,
+   "book10_total_pct": 40.3,
+   "book10_maxdd_pct": -7.4
+  }
+ },
+ "R2": {
+  "id": "2239c8b7c3",
+  "rule": "btc_ret_7d >= 0.1759 & dist_high_30 >= -0.03434 & range_z >= 2.397 → long 14d hedge",
+  "spec": {
+   "name": "LUẬT 113: LONG TRÊN KHOẢNG CÁCH ĐỈNH - CƠ CHẾ BÙ ĐẦU",
+   "anomaly": "mined",
+   "rationale": "Khi đồng coin chạm mức cao trong 30 ngày và có sự bù đầu mạnh (giảm mạnh sau đỉnh), có thể là dấu hiệu của sự điều chỉnh sau cơn sốt, tạo cơ hội để vào long.",
+   "conditions": [
+    {
+     "feature": "btc_ret_7d",
+     "op": ">=",
+     "value": 0.1759
+    },
+    {
+     "feature": "dist_high_30",
+     "op": ">=",
+     "value": -0.03434
+    },
+    {
+     "feature": "range_z",
+     "op": ">=",
+     "value": 2.397
+    }
+   ],
+   "side": "long",
+   "hold_days": 14,
+   "hedge": "btc"
+  },
+  "is": {
+   "trades": 43,
+   "win": 0.651,
+   "mean_pct": 21.16,
+   "median_pct": 10.77,
+   "worst_pct": -33.9,
+   "by_year": {
+    "2021": 38.87,
+    "2022": -2.39,
+    "2023": 2.85
+   },
+   "entry_days": 20,
+   "equal_weight_sr": 1.54,
+   "book10_sr": 1.53,
+   "book10_total_pct": 85.1,
+   "book10_maxdd_pct": -12.9
+  },
+  "os": {
+   "trades": 33,
+   "win": 0.576,
+   "mean_pct": 11.95,
+   "median_pct": 3.68,
+   "worst_pct": -39.3,
+   "by_year": {
+    "2024": 11.95
+   },
+   "entry_days": 8,
+   "equal_weight_sr": 0.94,
+   "book10_sr": 0.79,
+   "book10_total_pct": 28.2,
+   "book10_maxdd_pct": -19.1
+  }
+ },
+ "R3": {
+  "id": "de6c8e5e5d",
+  "rule": "age_days <= 30 & vol_z >= 1.8 → short 7d",
+  "spec": {
+   "name": "Luật giao dịch crypto: Short mới - Tập trung vào thanh khoản & vòng đời",
+   "anomaly": "mined",
+   "rationale": "Thị trường có xu hướng bán tháo khi coin mới (age_days thấp) gặp biến động thanh khoản bất thường (vol_z cao), tạo cơ hội short lợi nhuận.",
+   "conditions": [
+    {
+     "feature": "age_days",
+     "op": "<=",
+     "value": 30.0
+    },
+    {
+     "feature": "vol_z",
+     "op": ">=",
+     "value": 1.8
+    }
+   ],
+   "side": "short",
+   "hold_days": 7,
+   "hedge": "none"
+  },
+  "is": {
+   "trades": 41,
+   "win": 0.732,
+   "mean_pct": 2.05,
+   "median_pct": 6.99,
+   "worst_pct": -60.5,
+   "by_year": {
+    "2021": 5.35,
+    "2022": 7.72,
+    "2023": -3.1
+   },
+   "entry_days": 36,
+   "equal_weight_sr": 0.41,
+   "book10_sr": 0.27,
+   "book10_total_pct": 8.4,
+   "book10_maxdd_pct": -12.6
+  },
+  "os": {
+   "trades": 37,
+   "win": 0.676,
+   "mean_pct": 8.27,
+   "median_pct": 13.23,
+   "worst_pct": -53.7,
+   "by_year": {
+    "2024": 8.86,
+    "2025": 5.69,
+    "2026": 13.45
+   },
+   "entry_days": 37,
+   "equal_weight_sr": 0.74,
+   "book10_sr": 0.69,
+   "book10_total_pct": 30.6,
+   "book10_maxdd_pct": -23.2
+  }
+ },
+ "R4": {
+  "id": "8073825517",
+  "rule": "btc_ret_7d >= 0.08568 & ret_7d <= -0.1366 & vol_z <= -1.216 → short 7d",
+  "spec": {
+   "name": "Luật: short khi BTC mạnh, vol thấp, thị trường chung yếu",
+   "anomaly": "mined",
+   "rationale": "Thị trường chung yếu, BTC tăng mạnh nhưng volume thấp, thể hiện sự lo ngại hoặc sự chốt lệnh mạnh từ các bên lớn, tạo cơ hội short alt.",
+   "conditions": [
+    {
+     "feature": "btc_ret_7d",
+     "op": ">=",
+     "value": 0.08568
+    },
+    {
+     "feature": "ret_7d",
+     "op": "<=",
+     "value": -0.1366
+    },
+    {
+     "feature": "vol_z",
+     "op": "<=",
+     "value": -1.216
+    }
+   ],
+   "side": "short",
+   "hold_days": 7,
+   "hedge": "none"
+  },
+  "is": {
+   "trades": 38,
+   "win": 0.737,
+   "mean_pct": 2.65,
+   "median_pct": 4.74,
+   "worst_pct": -61.9,
+   "by_year": {
+    "2021": 4.11,
+    "2023": -14.42
+   },
+   "entry_days": 12,
+   "equal_weight_sr": -0.41,
+   "book10_sr": 0.16,
+   "book10_total_pct": 4.2,
+   "book10_maxdd_pct": -10.5
+  },
+  "os": {
+   "trades": 38,
+   "win": 0.605,
+   "mean_pct": 5.77,
+   "median_pct": 4.46,
+   "worst_pct": -37.9,
+   "by_year": {
+    "2024": 1.49,
+    "2025": 8.88,
+    "2026": 1.5
+   },
+   "entry_days": 20,
+   "equal_weight_sr": 0.71,
+   "book10_sr": 0.65,
+   "book10_total_pct": 21.9,
+   "book10_maxdd_pct": -10.1
+  }
+ },
+ "R5": {
+  "id": "b652f7c702",
+  "rule": "btc_ret_7d >= 0.09319 & ret_30d <= -0.2956 & taker_ratio >= 0.5014 → short 7d",
+  "spec": {
+   "name": "Luật giao dịch crypto perp - Phiên / Thị trường chung (Bắt buộc short)",
+   "anomaly": "mined",
+   "rationale": "Tập trung vào sự biến động của thị trường chung (BTC) và xu hướng dài hạn của coin, kết hợp với sự phân tán của khối lượng và hoạt động thị trường để xác định thời điểm short an toàn và có lợi nhuận.",
+   "conditions": [
+    {
+     "feature": "btc_ret_7d",
+     "op": ">=",
+     "value": 0.09319
+    },
+    {
+     "feature": "ret_30d",
+     "op": "<=",
+     "value": -0.2956
+    },
+    {
+     "feature": "taker_ratio",
+     "op": ">=",
+     "value": 0.5014
+    }
+   ],
+   "side": "short",
+   "hold_days": 7,
+   "hedge": "none"
+  },
+  "is": {
+   "trades": 33,
+   "win": 0.788,
+   "mean_pct": 12.77,
+   "median_pct": 10.96,
+   "worst_pct": -27.5,
+   "by_year": {
+    "2021": 29.75,
+    "2022": 3.31,
+    "2023": -12.4
+   },
+   "entry_days": 9,
+   "equal_weight_sr": 0.5,
+   "book10_sr": 1.06,
+   "book10_total_pct": 36.3,
+   "book10_maxdd_pct": -9.3
+  },
+  "os": {
+   "trades": 17,
+   "win": 0.647,
+   "mean_pct": 4.78,
+   "median_pct": 4.64,
+   "worst_pct": -29.9,
+   "by_year": {
+    "2024": -1.31,
+    "2025": 6.38,
+    "2026": 15.88
+   },
+   "entry_days": 14,
+   "equal_weight_sr": 0.69,
+   "book10_sr": 0.58,
+   "book10_total_pct": 8.1,
+   "book10_maxdd_pct": -3.4
+  }
+ },
+ "R6": {
+  "id": "c3a4fa9d66",
+  "rule": "age_days >= 1312 & jump >= 0.8461 → short 7d",
+  "spec": {
+   "name": "Luật: Short mới - Vòng đời coin + Jump",
+   "anomaly": "mined",
+   "rationale": "Vòng đời coin mới + Jump cao → cung không đủ, giá bị ép xuống, nên short.",
+   "conditions": [
+    {
+     "feature": "age_days",
+     "op": ">=",
+     "value": 1312.0
+    },
+    {
+     "feature": "jump",
+     "op": ">=",
+     "value": 0.8461
+    }
+   ],
+   "side": "short",
+   "hold_days": 7,
+   "hedge": "none"
+  },
+  "is": {
+   "trades": 42,
+   "win": 0.714,
+   "mean_pct": 2.11,
+   "median_pct": 2.09,
+   "worst_pct": -14.8,
+   "by_year": {
+    "2023": 2.11
+   },
+   "entry_days": 18,
+   "equal_weight_sr": 0.16,
+   "book10_sr": 0.66,
+   "book10_total_pct": 8.8,
+   "book10_maxdd_pct": -5.3
+  },
+  "os": {
+   "trades": 311,
+   "win": 0.63,
+   "mean_pct": 1.54,
+   "median_pct": 2.68,
+   "worst_pct": -165.0,
+   "by_year": {
+    "2024": 1.9,
+    "2025": 2.2,
+    "2026": 0.05
+   },
+   "entry_days": 113,
+   "equal_weight_sr": 0.29,
+   "book10_sr": 0.53,
+   "book10_total_pct": 37.6,
+   "book10_maxdd_pct": -27.5
+  }
+ },
+ "R7": {
+  "id": "0cede4521c",
+  "rule": "age_days >= 1084 & jump >= 0.7171 & taker_ratio <= 0.4608 → short 7d",
+  "spec": {
+   "name": "Law 2024: Short on Old Coins with Jump and Low Taker Ratio",
+   "anomaly": "mined",
+   "rationale": "Coin tuổi cao thường bị bỏ rơi khi thị trường biến động, đặc biệt khi có sự nhảy vọt giá đột ngột (jump) và taker buy không đủ mạnh.",
+   "conditions": [
+    {
+     "feature": "age_days",
+     "op": ">=",
+     "value": 1084.0
+    },
+    {
+     "feature": "jump",
+     "op": ">=",
+     "value": 0.7171
+    },
+    {
+     "feature": "taker_ratio",
+     "op": "<=",
+     "value": 0.4608
+    }
+   ],
+   "side": "short",
+   "hold_days": 7,
+   "hedge": "none"
+  },
+  "is": {
+   "trades": 37,
+   "win": 0.73,
+   "mean_pct": 5.87,
+   "median_pct": 5.83,
+   "worst_pct": -4.9,
+   "by_year": {
+    "2023": 5.87
+   },
+   "entry_days": 16,
+   "equal_weight_sr": 1.05,
+   "book10_sr": 1.2,
+   "book10_total_pct": 21.7,
+   "book10_maxdd_pct": -3.2
+  },
+  "os": {
+   "trades": 129,
+   "win": 0.69,
+   "mean_pct": 2.98,
+   "median_pct": 3.47,
+   "worst_pct": -24.9,
+   "by_year": {
+    "2024": 3.35,
+    "2025": 2.52,
+    "2026": 2.87
+   },
+   "entry_days": 61,
+   "equal_weight_sr": 0.2,
+   "book10_sr": 0.81,
+   "book10_total_pct": 35.3,
+   "book10_maxdd_pct": -11.2
+  }
+ }
+}

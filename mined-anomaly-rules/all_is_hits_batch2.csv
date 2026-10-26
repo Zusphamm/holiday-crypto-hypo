@@ -1,0 +1,40 @@
+id,rule,is_n,is_win,is_mean,is_sr,os_n,os_win,os_mean,os_median,os_sr,is_hit
+85a2854ae8,funding_3d <= 0.0003 & ret_asia >= 0.05463 & taker_ratio <= 0.4563 → long 14d,40,0.825,35.83,1.55,8,0.25,-11.37,-18.46,-0.16,True
+08d7d8e1fb,btc_ret_1d >= 0.06104 & dist_high_30 >= -0.03268 & vol_z >= 2.287 → long 14d,43,0.837,27.94,1.57,40,0.775,18.35,9.14,0.62,True
+ba6cd681a7,dist_high_30 >= -0.05 & funding_3d <= 0.0003 & taker_ratio <= 0.4563 → long 14d,58,0.81,29.11,1.64,21,0.476,-1.46,-0.13,-0.45,True
+2c08d2a995,funding_3d <= 0.0003 & ret_us >= 0.05 & taker_ratio <= 0.4563 → long 14d,28,0.679,39.42,1.09,16,0.625,25.19,4.58,1.23,True
+152a16499b,btc_ret_1d >= 0.03756 & range_z >= 1.314 & taker_ratio <= 0.4623 → long 14d hedge,32,0.781,25.56,0.72,16,0.375,1.2,-3.75,-0.16,True
+558a750552,btc_ret_1d >= 0.06104 & dist_high_30 >= -0.03268 & premium >= 0.002159 → long 14d,37,0.703,28.27,0.72,3,1.0,52.22,33.44,0.86,True
+4609bbb888,funding_3d <= 0.0003 & ret_asia >= 0.05463 & taker_ratio <= 0.4563 → long 14d hedge,40,0.725,25.09,1.2,8,0.25,-12.57,-22.75,-0.21,True
+3e7db23155,ret_1d >= 0.05689 & taker_ratio <= 0.4655 & upper_wick >= 0.5295 → long 14d,39,0.718,25.7,1.15,7,0.286,0.17,-11.15,0.01,True
+d027dbe609,ret_30d >= 0.7 & ret_us >= 0.05 & taker_ratio <= 0.4563 → long 14d,55,0.655,31.73,0.98,0,,,,,True
+b5f9f2b633,age_days <= 48 & ret_30d >= 1.16 → long 7d,38,0.684,28.33,1.55,62,0.387,10.48,-15.83,0.61,True
+6121b00d03,ret_30d >= 0.6 & ret_us >= 0.05 & taker_ratio <= 0.45 → long 14d hedge,37,0.703,25.89,1.45,0,,,,,True
+3000b69aa5,ret_asia >= 0.059 & taker_ratio <= 0.4563 & upper_wick >= 0.6594 → long 14d,32,0.688,26.8,1.44,3,0.667,25.65,37.97,0.38,True
+b652f7c702,btc_ret_7d >= 0.09319 & ret_30d <= -0.2956 & taker_ratio >= 0.5014 → short 7d,33,0.788,12.77,0.5,17,0.647,4.78,4.64,0.69,True
+111cc0d54a,ret_7d >= 0.1 & ret_us >= 0.05 & taker_ratio <= 0.4563 → long 14d,95,0.653,23.98,1.13,5,0.6,43.92,2.91,0.86,True
+54baa9b35a,ret_30d >= 0.5 & ret_asia >= 0.05 & taker_ratio <= 0.4563 → long 14d hedge,80,0.675,21.32,1.8,5,0.0,-24.7,-22.3,-0.31,True
+e6d6e68598,btc_ret_1d >= 0.05766 & ret_7d >= 0.3426 & taker_ratio <= 0.4535 → long 14d hedge,47,0.681,20.62,1.18,0,,,,,True
+e0594b2e32,btc_ret_1d >= 0.05061 & ret_asia >= 0.05463 & taker_ratio <= 0.4563 → long 7d,38,0.763,12.11,0.82,0,,,,,True
+70e3e91bbb,upper_wick >= 0.7455 & vol_z <= -2.115 → long 7d,38,0.789,9.01,0.69,49,0.327,-4.81,-4.54,-0.83,True
+2239c8b7c3,btc_ret_7d >= 0.1759 & dist_high_30 >= -0.03434 & range_z >= 2.397 → long 14d hedge,43,0.651,21.16,1.54,33,0.576,11.95,3.68,0.94,True
+78a65a925f,ret_us >= 0.03 & sm_imb >= 0.05 & taker_ratio <= 0.46 → long 14d,24,0.667,18.78,0.54,15,0.533,17.14,2.91,1.05,True
+f45002a9d0,btc_ret_1d >= 0.0756 & premium >= 0.002549 & taker_ratio <= 0.4483 → long 14d,40,0.65,20.24,0.58,0,,,,,True
+61d9e3571d,btc_ret_1d >= 0.045 & prem_idx >= 0.0018 & taker_ratio <= 0.46 → long 14d hedge,143,0.664,16.23,0.94,1,0.0,-16.91,-16.91,,True
+12e420b76f,btc_ret_1d >= 0.05 & funding_3d <= 0.0003 & taker_ratio <= 0.4563 → long 14d hedge,119,0.672,14.4,0.94,8,0.25,-13.58,-8.76,-0.95,True
+62f11b3ab4,btc_ret_7d >= 0.154 & taker_ratio <= 0.4563 & upper_wick >= 0.6 → long 14d hedge,32,0.688,12.71,0.55,1,1.0,1.23,1.23,,True
+00801b0e71,jump >= 0.7889 & vol_z <= -1.848 → long 7d,47,0.745,6.9,0.52,56,0.375,-1.54,-3.31,-0.18,True
+1ba4aee2b5,age_days <= 36 & lower_wick >= 0.7586 → long 7d,38,0.658,15.25,1.13,61,0.393,0.98,-4.66,0.29,True
+3912990784,btc_ret_1d >= 0.04691 & ret_us >= 0.04555 & taker_ratio <= 0.4585 → long 7d,40,0.675,13.49,0.99,0,,,,,True
+e225e25bdf,btc_ret_7d >= 0.1432 & jump >= 0.7361 & taker_ratio <= 0.4585 → long 14d hedge,49,0.673,12.23,0.53,3,0.333,-1.35,-0.53,-0.04,True
+0cede4521c,age_days >= 1084 & jump >= 0.7171 & taker_ratio <= 0.4608 → short 7d,37,0.73,5.87,1.05,129,0.69,2.98,3.47,0.2,True
+3a68610cae,ls_global_z >= 1.806 & ret_7d >= 0.2495 → short 7d,37,0.703,7.29,0.7,302,0.689,3.21,9.27,-0.1,True
+8073825517,btc_ret_7d >= 0.08568 & ret_7d <= -0.1366 & vol_z <= -1.216 → short 7d,38,0.737,2.65,-0.41,38,0.605,5.77,4.46,0.71,True
+3a8b08e16c,lg_imb >= 0.08 & sm_imb <= -0.15 → long 7d,33,0.727,3.46,0.83,22,0.455,7.16,-1.1,0.65,True
+0070f04e85,funding_3d <= -0.0001486 & range_z >= 1.314 & taker_ratio <= 0.4623 → long 14d hedge,43,0.651,10.9,0.91,32,0.281,-4.6,-4.86,-1.05,True
+de6c8e5e5d,age_days <= 30 & vol_z >= 1.8 → short 7d,41,0.732,2.05,0.41,37,0.676,8.27,13.23,0.74,True
+9a61905bf2,btc_ret_7d >= 0.05 & ls_global_z >= 2 & oi_chg_7d <= -0.2 → short 7d hedge,47,0.723,2.78,0.49,57,0.667,-0.73,6.31,-0.05,True
+c3a4fa9d66,age_days >= 1312 & jump >= 0.8461 → short 7d,42,0.714,2.11,0.16,311,0.63,1.54,2.68,0.29,True
+a2d4491aa6,ret_7d >= 0.3426 & rskew <= -2.102 → short 3d,44,0.705,2.19,0.38,89,0.551,-4.79,1.18,-0.54,True
+b23befa2bd,dist_high_30 >= -0.152 & ret_30d <= -0.1451 → short 7d,32,0.688,2.53,0.72,14,0.571,2.58,4.62,0.75,True
+cb3089c011,rskew <= -2.005 & upper_wick >= 0.6551 → short 7d hedge,38,0.658,3.73,0.67,40,0.525,-0.24,0.51,-0.16,True
